@@ -6,6 +6,7 @@
 using namespace std;
 
 /*
+* go to a keyword in the file. used to go to roles list and permissions list
 * returns # of lines after current line number found at
 * else -1
 */
@@ -25,6 +26,7 @@ int goToString(fstream& myfile, string text) {
 
 /*
 * get the roles list
+* return as a vector string
 */
 vector<string> getList(fstream& myfile) {
 	string line;
@@ -48,7 +50,8 @@ vector<string> getList(fstream& myfile) {
 }
 
 /*
-* format options into a comma seperated list in string form
+* sub function of doPermissions()
+* take entered 1's and 0's, and format it into a comma seperated list of roles in string form
 */
 string makeChoices(vector<string> roles, string choices) {
 	string options;
@@ -73,7 +76,11 @@ string makeChoices(vector<string> roles, string choices) {
 	return options;
 }
 
-/*returns permissions block*/
+/*
+function to let user choose which permissons are granted to what roles.
+Goes through each permission in config_remoteadmin.txt
+returns permissions block as a string
+*/
 string doPermissions(fstream& myfile, vector<string> roles) {
 	string permissions, line,choices,temp, userinput;
 	size_t offset = 0, pos = 0;
@@ -150,6 +157,7 @@ int main() {
 			}
 		}
 	}
+
 	else std::cerr << "Error opening file: " << filepath << endl;
 	myfile.close();
 	return 0;
